@@ -1,0 +1,7 @@
+{
+  "name": "email-engine-core",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Prabeg Shakya <shakyaprabeg@gmail.com>",
+  "license": "MIT"
+}
