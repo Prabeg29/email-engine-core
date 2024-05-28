@@ -3,4 +3,5 @@ lib/
 .env
 logs/
 yarn-error.log
+es-data/
 

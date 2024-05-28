@@ -1,0 +1,22 @@
+version: '3.8'
+
+networks:
+  email-engine-core:
+    driver: bridge
+
+services:
+  elasticsearch:
+    image: elasticsearch:8.13.4
+    container_name: email-engine-core_elasticsearch
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - ./es-data:/usr/share/elasticsearch/data
+    networks:
+      - email-engine-core
