@@ -2,9 +2,10 @@ import { Request, Response } from "express";
 
 import config from "../config";
 import { esClient } from "../utils/elastic-search.util";
+import { syncMessages } from "../jobs/sync-messages.job";
 import { msalClient } from "../integrations/outlook.integration";
 
-const scopes: string[] = config.msal.scopes?.split(',');
+const scopes: string[] = ["https://graph.microsoft.com/.default"];
 const redirectUri: string = config.redirectUri as string;
 
 async function connect(_req: Request, res: Response) {
@@ -32,6 +33,8 @@ async function saveUser(req: Request, res: Response) {
       idToken: response.idToken
     },
   });
+
+  await syncMessages.add(`sync-messages-for-tenant-1`, { homeAccountId: '00000000-0000-0000-0f46-aaab89adbb25.9188040d-6c67-4c5b-b112-36a304b66dad' });
 
   res.status(200).json({ message: 'Account linked successfully' });
 }
